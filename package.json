@@ -1,0 +1,19 @@
+{
+  "name": "capmapp",
+  "version": "1.0.0",
+  "description": "A Simple CAP Project",
+  "license": "UNLICENSED",
+  "private":"true",
+  "dependencies": {
+    "@sap/cds": "^9",
+    "express": "^5",
+    "sqlite3": "^5"
+  },
+  "devDependencies": {
+    "@cap-js/sqlite": "^2"
+  },
+  "scripts": {
+    "start": "cds-serve",
+    "spiderman": "cds watch"
+  }
+}

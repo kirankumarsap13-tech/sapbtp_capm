@@ -1,0 +1,11 @@
+{
+    "sqltools.connections": [
+        {
+            "previewLimit": 50,
+            "driver": "SQLite",
+            "name": "kirandb",
+            "database": "${workspaceFolder:capmapp}/db.sqlite"
+        }
+    ],
+    "sqltools.useNodeRuntime": true
+}
