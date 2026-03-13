@@ -34,7 +34,7 @@ Content-Type: application/json
     "email": "Kirankamati@apple.com",
     "loginName": "KiranK",
     "Currency": "USD",
-    "SalaryAmount": 10000,
+    "SalaryAmount": 1000000,
     "accountNumber": "132009",
     "bankId": "36233111",
     "bankName": "BofA"
@@ -48,3 +48,9 @@ Content-Type: application/json
 
 ###Calling CAP functions
 GET http://localhost:4004/odata/v4/CatalogService/POs/zxv/largestOrder()
+
+###Complete Custom entity which has structure from DB but logic from own handling
+GET http://localhost:4004/odata/v4/MyService1/ReadEmployeeSrv
+
+###Get the Employeedata using Adapter Proxy V2
+http://localhost:4004/odata/v2/my/StudentSet

@@ -1,0 +1,4 @@
+VIEW localized_kiran_cds_CDSViews_ProductVH AS SELECT
+  product_0.PRODUCT_ID AS ProductId,
+  product_0.DESCRIPTION AS ProductName
+FROM localized_kiran_db_master_product AS product_0

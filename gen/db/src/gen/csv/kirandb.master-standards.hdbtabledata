@@ -1,0 +1,31 @@
+{
+  "format_version": 1,
+  "imports": [
+    {
+      "target_table": "KIRANDB_MASTER_STANDARDS",
+      "source_data": {
+        "data_type": "CSV",
+        "file_name": "kirandb.master-standards.csv",
+        "has_header": true,
+        "type_config": {
+          "delimiter": ","
+        }
+      },
+      "import_settings": {
+        "import_columns": [
+          "ID",
+          "CLASSNAME",
+          "SECTIONS",
+          "CLASSTEACHER"
+        ],
+        "include_filter": []
+      },
+      "column_mappings": {
+        "ID": "ID",
+        "CLASSNAME": "CLASSNAME",
+        "SECTIONS": "SECTIONS",
+        "CLASSTEACHER": "CLASSTEACHER"
+      }
+    }
+  ]
+}

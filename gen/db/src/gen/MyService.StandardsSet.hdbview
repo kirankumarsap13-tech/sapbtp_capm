@@ -1,0 +1,6 @@
+VIEW MyService_StandardsSet AS SELECT
+  standards_0.ID,
+  standards_0.CLASSNAME,
+  standards_0.SECTIONS,
+  standards_0.CLASSTEACHER
+FROM kirandb_master_standards AS standards_0

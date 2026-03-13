@@ -1,0 +1,5 @@
+VIEW MyService_BooksSet AS SELECT
+  books_0.ID,
+  books_0.BOOKNAME,
+  books_0.AUTHOR
+FROM kirandb_master_books AS books_0

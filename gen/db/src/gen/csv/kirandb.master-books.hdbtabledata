@@ -1,0 +1,29 @@
+{
+  "format_version": 1,
+  "imports": [
+    {
+      "target_table": "KIRANDB_MASTER_BOOKS",
+      "source_data": {
+        "data_type": "CSV",
+        "file_name": "kirandb.master-books.csv",
+        "has_header": true,
+        "type_config": {
+          "delimiter": ","
+        }
+      },
+      "import_settings": {
+        "import_columns": [
+          "ID",
+          "BOOKNAME",
+          "AUTHOR"
+        ],
+        "include_filter": []
+      },
+      "column_mappings": {
+        "ID": "ID",
+        "BOOKNAME": "BOOKNAME",
+        "AUTHOR": "AUTHOR"
+      }
+    }
+  ]
+}

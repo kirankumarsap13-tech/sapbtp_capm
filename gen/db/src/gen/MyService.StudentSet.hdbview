@@ -1,0 +1,10 @@
+VIEW MyService_StudentSet AS SELECT
+  student_0.HOUSENO,
+  student_0.STREET,
+  student_0.CITY,
+  student_0.COUNTRY,
+  student_0.ID,
+  student_0.NAME,
+  student_0.CLASS_ID,
+  student_0.GENDER
+FROM kirandb_master_student AS student_0

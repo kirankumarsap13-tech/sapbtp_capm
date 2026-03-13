@@ -1,0 +1,12 @@
+VIEW MyService_BookRentalsSet AS SELECT
+  rentals_0.ID,
+  rentals_0.validFrom,
+  rentals_0.validTo,
+  rentals_0.createdAt,
+  rentals_0.createdBy,
+  rentals_0.modifiedAt,
+  rentals_0.modifiedBy,
+  rentals_0.student_ID,
+  rentals_0.book_ID
+FROM kirandb_trans_rentals AS rentals_0
+WHERE (rentals_0.validFrom < TO_TIMESTAMP(SESSION_CONTEXT('VALID-TO')) AND rentals_0.validTo > TO_TIMESTAMP(SESSION_CONTEXT('VALID-FROM')))
