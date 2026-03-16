@@ -1,0 +1,40 @@
+{
+  "xsappname" : "capmapp",
+  "tenant-mode"   : "shared", 
+  "scopes": [ 
+    { 
+     "name" : "$XSAPPNAME.Viewer", 
+     "description" : "Able to display data from services" }, 
+    { 
+     "name" : "$XSAPPNAME.Admin", 
+     "description" : "Able to edit data" }
+   
+], 
+
+  "foreign-scope-references": ["$ACCEPT_GRANTED_SCOPES"], 
+  "authorities":["$ACCEPT_GRANTED_AUTHORITIES"],
+  "attributes" : [ { 
+                    "name" : "BankName", 
+                    "description" : "Bank Name to allow role level security", 
+                    "valueType" : "string" }
+                 ], 
+  "role-templates": [ { 
+                    "name"               : "Viewer", 
+                    "description"        : "View all  the Employees", 
+
+                    "scope-references"   : [ "$XSAPPNAME.Viewer" ], 
+                    "attribute-references" : [{ "name": "BankName" }] },
+
+                    { 
+                    "name"               : "Admin", 
+                    "description"        : "Edit all  the Employees", 
+
+                    "scope-references"   : [ "$XSAPPNAME.Admin" ] } 
+                   ], 
+  "oauth2-configuration": {
+                    "token-validity": 900, 
+                    "refresh-token-validity": 1800, 
+                    "redirect-uris": [	
+                                      "https://api.cf.us10-001.hana.ondemand.com"],  
+                    "autoapprove": "false" } 
+}

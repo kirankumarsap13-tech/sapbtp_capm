@@ -9,14 +9,16 @@
     "@cap-js/hana": "^2",
     "@sap/cds": "^9",
     "express": "^5",
-    "sqlite3": "^5"
+    "sqlite3": "^5",
+    "@sap/xssec": "^4",
+    "passport": "^0"
   },
   "devDependencies": {
     "@cap-js/sqlite": "^2",
     "cds-plugin-ui5": "^0.13.0"
   },
   "scripts": {
-    "start": "cds-serve",
+    "start": "node node_modules/@sap/approuter/approuter.js",
     "spiderman": "cds watch",
     "watch-studentapp": "cds watch --open com.student.studentapp/index.html?sap-ui-xx-viewCache=false --livereload false"
   },
@@ -26,5 +28,36 @@
   "sapux": [
     "app/studentapp"
   ],
-  "cds": {}
+  "cds": {
+    "requires": {
+      "[production]": {
+      "db": "hana",
+      "uaa": {
+        "kind": "xsuaa"
+      },
+      "auth": {
+         "[development]":{
+          "strategy": "mocked",
+          "users":{
+            "kiran":{ 
+              "roles": ["Viewer"],
+              "userAttributes": {
+                "BankName": [ ]
+              }
+            },
+            "KKK":{ 
+               "roles": ["Viewer"],
+              "userAttributes": {
+                "BankName": [ ]
+              }
+            }         
+          }
+        },
+        "[production]":{
+          "strategy": "JWT"
+        }
+      }
+      }
+    }
+  }
 }

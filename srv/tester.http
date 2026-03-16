@@ -54,3 +54,7 @@ GET http://localhost:4004/odata/v4/MyService1/ReadEmployeeSrv
 
 ###Get the Employeedata using Adapter Proxy V2
 http://localhost:4004/odata/v2/my/StudentSet
+
+
+###Security - To test authorization and authentication
+POST http://localhost:4004/odata/v4/CatalogService/EmployeesSet
