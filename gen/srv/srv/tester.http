@@ -1,0 +1,60 @@
+###Get the service document
+http://localhost:4004/odata/v4/CatalogService
+
+###Get the service metadata
+http://localhost:4004/odata/v4/CatalogService/$metadata
+
+###Get the Employeedata
+http://localhost:4004/odata/v4/CatalogService/EmployeesSet
+
+###Get the Employeedata
+http://localhost:4004/odata/v4/my/StudentSet?$top=2&$skip=2
+
+###Filtering of data similar to WHERE condition
+http://localhost:4004/odata/v4/my/StudentSet?$filter=GENDER eq 'F'
+
+###Counting Records
+http://localhost:4004/odata/v4/my/StudentSet/$count
+
+###Get Single Record by Key
+http://localhost:4004/odata/v4/my/StudentSet/4
+
+###POST - To create Employee data
+POST http://localhost:4004/odata/v4/CatalogService/EmployeesSet
+Content-Type: application/json
+
+{
+ "nameFirst":  "Kiran Kumar",
+ "nameLast": "Kamati",
+ "nameMiddle": "",
+ "nameInitials": "K",
+    "sex": "M",
+    "language": "E",
+    "phoneNumber":"+919136812895",
+    "email": "Kirankamati@apple.com",
+    "loginName": "KiranK",
+    "Currency": "USD",
+    "SalaryAmount": 1000000,
+    "accountNumber": "132009",
+    "bankId": "36233111",
+    "bankName": "BofA"
+}
+
+###Calling an Action
+POST http://localhost:4004/odata/v4/CatalogService/POs/zxv/boost
+Content-Type: application/json
+
+{}
+
+###Calling CAP functions
+GET http://localhost:4004/odata/v4/CatalogService/POs/zxv/largestOrder()
+
+###Complete Custom entity which has structure from DB but logic from own handling
+GET http://localhost:4004/odata/v4/MyService1/ReadEmployeeSrv
+
+###Get the Employeedata using Adapter Proxy V2
+http://localhost:4004/odata/v2/my/StudentSet
+
+
+###Security - To test authorization and authentication
+POST http://localhost:4004/odata/v4/CatalogService/EmployeesSet

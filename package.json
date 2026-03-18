@@ -15,6 +15,7 @@
   },
   "devDependencies": {
     "@cap-js/sqlite": "^2",
+    "@sap/cds-dk": "^9",
     "cds-plugin-ui5": "^0.13.0"
   },
   "scripts": {
@@ -31,32 +32,36 @@
   "cds": {
     "requires": {
       "[production]": {
-      "db": "hana",
-      "uaa": {
-        "kind": "xsuaa"
-      },
-      "auth": {
-         "[development]":{
-          "strategy": "mocked",
-          "users":{
-            "kiran":{ 
-              "roles": ["Viewer"],
-              "userAttributes": {
-                "BankName": [ ]
-              }
-            },
-            "KKK":{ 
-               "roles": ["Viewer"],
-              "userAttributes": {
-                "BankName": [ ]
-              }
-            }         
-          }
+        "db": "hana",
+        "uaa": {
+          "kind": "xsuaa"
         },
-        "[production]":{
-          "strategy": "JWT"
+        "auth": {
+          "[development]": {
+            "strategy": "mocked",
+            "users": {
+              "kiran": {
+                "roles": [
+                  "Viewer"
+                ],
+                "userAttributes": {
+                  "BankName": []
+                }
+              },
+              "KKK": {
+                "roles": [
+                  "Viewer"
+                ],
+                "userAttributes": {
+                  "BankName": []
+                }
+              }
+            }
+          },
+          "[production]": {
+            "strategy": "JWT"
+          }
         }
-      }
       }
     }
   }

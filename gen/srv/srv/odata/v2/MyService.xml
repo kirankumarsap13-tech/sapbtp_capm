@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="1.0" xmlns:edmx="http://schemas.microsoft.com/ado/2007/06/edmx" xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata" xmlns:sap="http://www.sap.com/Protocols/SAPData">
+  <edmx:Reference Uri="https://sap.github.io/odata-vocabularies/vocabularies/Common.xml" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+    <edmx:Include Alias="Common" Namespace="com.sap.vocabularies.Common.v1"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Core.V1.xml" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+    <edmx:Include Alias="Core" Namespace="Org.OData.Core.V1"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="https://sap.github.io/odata-vocabularies/vocabularies/UI.xml" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+    <edmx:Include Alias="UI" Namespace="com.sap.vocabularies.UI.v1"/>
+  </edmx:Reference>
+  <edmx:DataServices m:DataServiceVersion="2.0">
+    <Schema Namespace="MyService" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+      <Annotation Term="Core.Links" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+        <Collection>
+          <Record>
+            <PropertyValue Property="rel" String="author"/>
+            <PropertyValue Property="href" String="https://cap.cloud.sap"/>
+          </Record>
+        </Collection>
+      </Annotation>
+      <EntityContainer Name="EntityContainer" m:IsDefaultEntityContainer="true">
+        <EntitySet Name="StudentSet" EntityType="MyService.StudentSet"/>
+        <EntitySet Name="StandardsSet" EntityType="MyService.StandardsSet"/>
+        <EntitySet Name="BooksSet" EntityType="MyService.BooksSet"/>
+        <EntitySet Name="BookRentalsSet" EntityType="MyService.BookRentalsSet"/>
+        <AssociationSet Name="StudentSet_CLASS" Association="MyService.StudentSet_CLASS">
+          <End Role="StudentSet" EntitySet="StudentSet"/>
+          <End Role="StandardsSet" EntitySet="StandardsSet"/>
+        </AssociationSet>
+        <AssociationSet Name="BookRentalsSet_student" Association="MyService.BookRentalsSet_student">
+          <End Role="BookRentalsSet" EntitySet="BookRentalsSet"/>
+          <End Role="StudentSet" EntitySet="StudentSet"/>
+        </AssociationSet>
+        <AssociationSet Name="BookRentalsSet_book" Association="MyService.BookRentalsSet_book">
+          <End Role="BookRentalsSet" EntitySet="BookRentalsSet"/>
+          <End Role="BooksSet" EntitySet="BooksSet"/>
+        </AssociationSet>
+      </EntityContainer>
+      <EntityType Name="StudentSet">
+        <Key>
+          <PropertyRef Name="ID"/>
+        </Key>
+        <Property Name="HOUSENO" Type="Edm.Int16"/>
+        <Property Name="STREET" Type="Edm.String" MaxLength="32"/>
+        <Property Name="CITY" Type="Edm.String" MaxLength="80"/>
+        <Property Name="COUNTRY" Type="Edm.String" MaxLength="3"/>
+        <Property Name="ID" Type="Edm.String" MaxLength="32" Nullable="false"/>
+        <Property Name="NAME" Type="Edm.String" MaxLength="80"/>
+        <NavigationProperty Name="CLASS" Relationship="MyService.StudentSet_CLASS" FromRole="StudentSet" ToRole="StandardsSet"/>
+        <Property Name="CLASS_ID" Type="Edm.Int16"/>
+        <Property Name="GENDER" Type="Edm.String" MaxLength="1"/>
+      </EntityType>
+      <EntityType Name="StandardsSet">
+        <Key>
+          <PropertyRef Name="ID"/>
+        </Key>
+        <Property Name="ID" Type="Edm.Int16" Nullable="false"/>
+        <Property Name="CLASSNAME" Type="Edm.String" MaxLength="10"/>
+        <Property Name="SECTIONS" Type="Edm.Int16"/>
+        <Property Name="CLASSTEACHER" Type="Edm.String" MaxLength="80"/>
+      </EntityType>
+      <EntityType Name="BooksSet">
+        <Key>
+          <PropertyRef Name="ID"/>
+        </Key>
+        <Property Name="ID" Type="Edm.String" MaxLength="32" Nullable="false"/>
+        <Property Name="BOOKNAME" Type="Edm.String" MaxLength="30"/>
+        <Property Name="AUTHOR" Type="Edm.String" MaxLength="80"/>
+      </EntityType>
+      <EntityType Name="BookRentalsSet">
+        <Key>
+          <PropertyRef Name="ID"/>
+        </Key>
+        <Property Name="ID" Type="Edm.Guid" Nullable="false"/>
+        <Property Name="validFrom" Type="Edm.DateTimeOffset" Precision="7"/>
+        <Property Name="validTo" Type="Edm.DateTimeOffset" Precision="7"/>
+        <Property Name="createdAt" Type="Edm.DateTimeOffset" Precision="7"/>
+        <Property Name="createdBy" Type="Edm.String" MaxLength="255"/>
+        <Property Name="modifiedAt" Type="Edm.DateTimeOffset" Precision="7"/>
+        <Property Name="modifiedBy" Type="Edm.String" MaxLength="255"/>
+        <NavigationProperty Name="student" Relationship="MyService.BookRentalsSet_student" FromRole="BookRentalsSet" ToRole="StudentSet"/>
+        <Property Name="student_ID" Type="Edm.String" MaxLength="32"/>
+        <NavigationProperty Name="book" Relationship="MyService.BookRentalsSet_book" FromRole="BookRentalsSet" ToRole="BooksSet"/>
+        <Property Name="book_ID" Type="Edm.String" MaxLength="32"/>
+      </EntityType>
+      <Association Name="StudentSet_CLASS">
+        <End Role="StudentSet" Type="MyService.StudentSet" Multiplicity="*"/>
+        <End Role="StandardsSet" Type="MyService.StandardsSet" Multiplicity="0..1"/>
+        <ReferentialConstraint>
+          <Principal Role="StandardsSet">
+            <PropertyRef Name="ID"/>
+          </Principal>
+          <Dependent Role="StudentSet">
+            <PropertyRef Name="CLASS_ID"/>
+          </Dependent>
+        </ReferentialConstraint>
+      </Association>
+      <Association Name="BookRentalsSet_student">
+        <End Role="BookRentalsSet" Type="MyService.BookRentalsSet" Multiplicity="*"/>
+        <End Role="StudentSet" Type="MyService.StudentSet" Multiplicity="0..1"/>
+        <ReferentialConstraint>
+          <Principal Role="StudentSet">
+            <PropertyRef Name="ID"/>
+          </Principal>
+          <Dependent Role="BookRentalsSet">
+            <PropertyRef Name="student_ID"/>
+          </Dependent>
+        </ReferentialConstraint>
+      </Association>
+      <Association Name="BookRentalsSet_book">
+        <End Role="BookRentalsSet" Type="MyService.BookRentalsSet" Multiplicity="*"/>
+        <End Role="BooksSet" Type="MyService.BooksSet" Multiplicity="0..1"/>
+        <ReferentialConstraint>
+          <Principal Role="BooksSet">
+            <PropertyRef Name="ID"/>
+          </Principal>
+          <Dependent Role="BookRentalsSet">
+            <PropertyRef Name="book_ID"/>
+          </Dependent>
+        </ReferentialConstraint>
+      </Association>
+      <Annotations Target="MyService.BookRentalsSet/ID" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+        <Annotation Term="Core.ComputedDefaultValue" Bool="true"/>
+      </Annotations>
+      <Annotations Target="MyService.BookRentalsSet/createdAt" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+        <Annotation Term="UI.HiddenFilter" Bool="true"/>
+        <Annotation Term="UI.ExcludeFromNavigationContext" Bool="true"/>
+        <Annotation Term="Core.Immutable" Bool="true"/>
+        <Annotation Term="Core.Computed" Bool="true"/>
+        <Annotation Term="Common.Label" String="{i18n>CreatedAt}"/>
+      </Annotations>
+      <Annotations Target="MyService.BookRentalsSet/createdBy" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+        <Annotation Term="UI.HiddenFilter" Bool="true"/>
+        <Annotation Term="UI.ExcludeFromNavigationContext" Bool="true"/>
+        <Annotation Term="Core.Immutable" Bool="true"/>
+        <Annotation Term="Core.Computed" Bool="true"/>
+        <Annotation Term="Core.Description" String="{i18n>UserID.Description}"/>
+        <Annotation Term="Common.Label" String="{i18n>CreatedBy}"/>
+      </Annotations>
+      <Annotations Target="MyService.BookRentalsSet/modifiedAt" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+        <Annotation Term="UI.HiddenFilter" Bool="true"/>
+        <Annotation Term="UI.ExcludeFromNavigationContext" Bool="true"/>
+        <Annotation Term="Core.Computed" Bool="true"/>
+        <Annotation Term="Common.Label" String="{i18n>ChangedAt}"/>
+      </Annotations>
+      <Annotations Target="MyService.BookRentalsSet/modifiedBy" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+        <Annotation Term="UI.HiddenFilter" Bool="true"/>
+        <Annotation Term="UI.ExcludeFromNavigationContext" Bool="true"/>
+        <Annotation Term="Core.Computed" Bool="true"/>
+        <Annotation Term="Core.Description" String="{i18n>UserID.Description}"/>
+        <Annotation Term="Common.Label" String="{i18n>ChangedBy}"/>
+      </Annotations>
+    </Schema>
+  </edmx:DataServices>
+</edmx:Edmx>

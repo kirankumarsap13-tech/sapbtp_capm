@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="4.0" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+  <edmx:Reference Uri="https://sap.github.io/odata-vocabularies/vocabularies/Common.xml">
+    <edmx:Include Alias="Common" Namespace="com.sap.vocabularies.Common.v1"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Core.V1.xml">
+    <edmx:Include Alias="Core" Namespace="Org.OData.Core.V1"/>
+  </edmx:Reference>
+  <edmx:DataServices>
+    <Schema Namespace="MyService1" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+      <Annotation Term="Core.Links">
+        <Collection>
+          <Record>
+            <PropertyValue Property="rel" String="author"/>
+            <PropertyValue Property="href" String="https://cap.cloud.sap"/>
+          </Record>
+        </Collection>
+      </Annotation>
+      <EntityContainer Name="EntityContainer">
+        <EntitySet Name="ProductOrdersSet" EntityType="MyService1.ProductOrdersSet"/>
+        <FunctionImport Name="pokemon" Function="MyService1.pokemon"/>
+      </EntityContainer>
+      <EntityType Name="ProductOrdersSet">
+        <Key>
+          <PropertyRef Name="ProductKey"/>
+        </Key>
+        <Property Name="ProductKey" Type="Edm.String" MaxLength="32" Nullable="false"/>
+        <Property Name="ProductName" Type="Edm.String" MaxLength="255"/>
+        <Property Name="Price" Type="Edm.Decimal" Precision="5" Scale="2"/>
+        <Property Name="SupplierId" Type="Edm.String" MaxLength="32"/>
+        <Property Name="SupplierName" Type="Edm.String" MaxLength="250"/>
+        <Property Name="Country" Type="Edm.String" MaxLength="3"/>
+      </EntityType>
+      <Function Name="pokemon" IsBound="false" IsComposable="false">
+        <Parameter Name="name" Type="Edm.String" MaxLength="20"/>
+        <ReturnType Type="Edm.String"/>
+      </Function>
+      <Annotations Target="MyService1.pokemon(Edm.String)/name">
+        <Annotation Term="Core.OptionalParameter">
+          <Record Type="Core.OptionalParameterType"/>
+        </Annotation>
+      </Annotations>
+    </Schema>
+  </edmx:DataServices>
+</edmx:Edmx>
