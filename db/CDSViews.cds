@@ -67,7 +67,7 @@ context CDSViews {
     mixin
     {
      PO_ORDERS: Association[*] to ItemView on PO_ORDERS.ProductId = $projection.ProductKey
-    }  into
+    } into
     {   
       NODE_KEY as![ProductKey],
       DESCRIPTION as ![ProductName],
